@@ -8,8 +8,6 @@ from .models import DataItem, Signal
 
 from math import log, exp, log2, log10
 
-key_re = re.compile(r'SM_Exgauster\\\[\d+\:\d+\]')
-
 
 def unique_keys_view(request):
     result = DataItem.objects.order_by().values('key').distinct()
@@ -28,8 +26,7 @@ def get_values_view(request):
         if signals_names:
             signals = Signal.objects.filter(name__in=signals_names.split(','))
             for signal in signals:
-                for key in key_re.findall(signal.formula):
-                    keys.append(key)
+                keys += signal.variables
             keys = list(set(keys))
         items = items.filter(key__in=keys)
 
