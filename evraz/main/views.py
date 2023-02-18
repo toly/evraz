@@ -55,7 +55,6 @@ def get_values_view(request):
         for signal in signals:
             for i, moment in enumerate(result['moment']):
                 formula = signal.formula
-                print(result.keys(), '///')
                 for key in keys:
                     if key == 'moment':
                         continue
